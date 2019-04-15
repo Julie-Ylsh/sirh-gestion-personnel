@@ -30,17 +30,16 @@ public class EditerCollaborateurControlleur extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String protocol = req.getProtocol();
 		String matriculeParam = req.getParameter("matricule");
 		String titreParam = req.getParameter("titre");
 		String nomParam = req.getParameter("nom");
 		String prenomParam = req.getParameter("prenom");
 
-		if (matriculeParam == null) {
+		if (matriculeParam==null) {
 			resp.sendError(400, "Un matricule est attendu");
-		} else if (titreParam == null) {
+		} else if (titreParam==null) {
 			resp.sendError(400, "Un titre est attendu");
-		} else if (nomParam == null) {
+		} else if (nomParam==null) {
 			resp.sendError(400, "Un nom est attendu");
 		} else if (prenomParam == null) {
 			resp.sendError(400, "Un prénom est attendu");
