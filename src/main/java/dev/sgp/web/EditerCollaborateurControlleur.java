@@ -1,11 +1,18 @@
 package dev.sgp.web;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dev.sgp.entite.Collaborateur;
 
 public class EditerCollaborateurControlleur extends HttpServlet {
 	/**
@@ -15,40 +22,33 @@ public class EditerCollaborateurControlleur extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// recupere la valeur d'un parametre dont le nom est matricule
-		String matriculeParam = req.getParameter("matricule");
-
-		if (matriculeParam == null) {
-			resp.sendError(400, "Un matricule est attendu");
-		} else {
-			resp.setContentType("text/html");
-			// code HTML ecrit dans le corps de la reponse
-			resp.getWriter().write("<h1> Edition de collaborateur </h1>" + "Matricule : " + matriculeParam);
-		}
+		// affiche le formulaire
+		req.getRequestDispatcher("/WEB-INF/views/collab/NouveauCollaborateur.jsp").forward(req, resp);
 
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String matriculeParam = req.getParameter("matricule");
-		String titreParam = req.getParameter("titre");
 		String nomParam = req.getParameter("nom");
 		String prenomParam = req.getParameter("prenom");
+		String dateNaissanceParamString = req.getParameter("dateNaissance");
+		String adresseParam = req.getParameter("adresse");
+		String secuParam = req.getParameter("numSecu");
 
-		if (matriculeParam==null) {
-			resp.sendError(400, "Un matricule est attendu");
-		} else if (titreParam==null) {
-			resp.sendError(400, "Un titre est attendu");
-		} else if (nomParam==null) {
-			resp.sendError(400, "Un nom est attendu");
-		} else if (prenomParam == null) {
-			resp.sendError(400, "Un prénom est attendu");
-		} else {
-			resp.setContentType("text/html");
-			// code HTML ecrit dans le corps de la reponse
-			resp.getWriter().write("<h1> Edition de collaborateur </h1>" + "Matricule : " + matriculeParam
-					+ ", titre : " + titreParam + ", nom : " + nomParam + ", prenom : " + prenomParam);
-		}
+		LocalDate dateNaissanceParam = LocalDate.parse(dateNaissanceParamString,
+				DateTimeFormatter.ofPattern("yyyy-MM-d"));
+
+		int matriculeParam = new Random().nextInt();
+		String emailPro = prenomParam + "." + nomParam + "@societe.com";
+		ZonedDateTime dateHeureCreation = ZonedDateTime.now();
+
+		req.setAttribute("listeNoms", Arrays.asList("Robert", "Jean", "Hugues"));
+		Collaborateur nouveauCollaborateur = new Collaborateur(nomParam, prenomParam, dateNaissanceParam, adresseParam,
+				secuParam, emailPro);
+		req.setAttribute("collaborateur", nouveauCollaborateur);
+
+		req.getRequestDispatcher("/WEB-INF/views/collab/listerCollaborateurs.jsp").forward(req, resp);
+
 	}
 
 }
