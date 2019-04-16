@@ -1,6 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="dev.sgp.entite.Collaborateur"%>
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@page language="java" pageEncoding="UTF-8"%>
+
 
 <!DOCTYPE html>
 <html>
