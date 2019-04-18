@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="dev.sgp.entite.Collaborateur"%>
 <%@page language="java" pageEncoding="UTF-8"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -37,12 +37,18 @@ dist/css/bootstrap.css">
 		</header>
 
 
-		<aside>
+		<div>
 			<a href="/sgp/collaborateurs/editer"
 				class="btn btn-primary ajoutCollaborateur"
 				tabindex="1000" role="button" aria-disabled="true">Ajouter un
 				collaborateur</a>
-		</aside>
+		</div>
+		
+		<div>
+			<a href="/sgp/collaborateurs/statistiques"
+				class="btn btn-primary ajoutCollaborateur"
+				tabindex="1000" role="button" aria-disabled="true">Voir la liste des visites</a>
+		</div>
 
 		
 		<section>
